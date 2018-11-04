@@ -8,5 +8,12 @@
     "port": 5432
   },
   "test": {},
-  "production": {}
+  "production": {
+    "username": "postgres",
+    "password": "",
+    "database": "consensus",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5432
+  }
 }
