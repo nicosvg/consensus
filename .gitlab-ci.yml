@@ -13,8 +13,6 @@ Test:
   script:
     - cd front
     - npm install
-  except:
-    - branches
 
 Deploy:
   stage: deploy
@@ -36,3 +34,5 @@ Deploy:
   environment:
     name: dev
     url: http://51.38.37.160:8000
+  only:
+    - master
