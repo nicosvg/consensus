@@ -4,14 +4,17 @@
 		<div v-for="election in elections" :key="election.id">
 			{{ election.name }}
 		</div>
+		<add-election></add-election>
 	</div>
 </template>
 
 <script>
   import axios from 'axios'
+  import AddElection from './AddElection'
 
   export default {
     name: 'Elections',
+    components: {AddElection},
     props: {},
     data() {
       return {
