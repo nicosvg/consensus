@@ -2,11 +2,17 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const serveStatic = require('serve-static')
+
+// Serve front files
+const frontDir = process.env.FRONT_DIR ? process.env.FRONT_DIR : '../front/dist'
+console.log('Front directory: ' + frontDir)
+app.use(serveStatic(frontDir))
 
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
   res.send('Hello World!')
 })
 
