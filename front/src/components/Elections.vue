@@ -11,6 +11,7 @@
 <script>
   import axios from 'axios'
   import AddElection from './AddElection'
+  import config from '../config'
 
   export default {
     name: 'Elections',
@@ -26,7 +27,7 @@
     },
     methods: {
       async findAllElections() {
-        const response = await axios.get('http://localhost:8000/elections')
+        const response = await axios.get(config.rootApi + '/elections')
         return response.data
       }
     }
