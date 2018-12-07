@@ -1,11 +1,13 @@
 <template>
 	<div class="elections">
-		<div>Elections list!</div>
-		<button @click="findAllElections">Refresh</button>
-		<div v-for="election in elections" :key="election.id">
-			{{ election.name }}
+		<div class="elections-title">Elections en cours</div>
+		<button @click="createElection" class="create-election-button">Créer une nouvelle élection</button>
+		<div class="list-container">
+			<div class="elections-item" v-for="election in elections" :key="election.id">
+				{{ election.name }}
+			</div>
 		</div>
-		<add-election></add-election>
+		<button class="refresh-button" @click="findAllElections">Rafraîchir</button>
 	</div>
 </template>
 
@@ -30,16 +32,41 @@
       async findAllElections() {
         const response = await axios.get(config.rootApi + '/elections')
         this.elections = response.data
+      },
+      createElection() {
+        this.$router.push({name: 'createElection'})
       }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+	@import "../scss/variables";
+
 	.elections {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding-top: 3rem;
+
+		.elections-title {
+			font-size: 2rem;
+			margin: 1rem;
+			/*text-transform: uppercase;*/
+		}
+
+		.list-container {
+			margin: 2rem;
+
+			.elections-item {
+
+			}
+		}
+
+		.refresh-button {
+			background-color: $brown;
+		}
+
 	}
 </style>
