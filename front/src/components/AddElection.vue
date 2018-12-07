@@ -30,7 +30,10 @@
           name: this.name,
           description: this.description
         }
-        await axios.post(config.rootApi + '/elections', election)
+        const result = await axios.post(config.rootApi + '/elections', election)
+        if (result.status === 201) {
+          this.$router.push({name: 'electionsList'})
+        }
       }
     }
   }
