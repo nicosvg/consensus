@@ -14,6 +14,9 @@ module.exports = {
   findAll (req, res) {
     return election.findAll()
       .then(election => res.status(200).send(election))
-      .catch(error => res.status(500).send(error))
+      .catch(error => {
+        console.error('Failed to find all elections', error)
+        res.status(500).send(error)
+      })
   }
 }
