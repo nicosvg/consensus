@@ -30,8 +30,7 @@
           name: this.name,
           description: this.description
         }
-        const response = await axios.post(config.rootApi + '/elections', election)
-        console.log('added resultzzz', response)
+        await axios.post(config.rootApi + '/elections', election)
       }
     }
   }

@@ -6,7 +6,6 @@ const serveStatic = require('serve-static')
 
 // Serve front files
 const frontDir = process.env.FRONT_DIR ? process.env.FRONT_DIR : '../front/dist'
-console.log('Front directory: ' + frontDir)
 app.use(serveStatic(frontDir))
 
 app.use(bodyParser.json())
