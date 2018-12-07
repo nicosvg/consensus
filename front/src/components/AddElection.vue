@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
+  import config from '../config'
 
   export default {
     name: 'AddElection',
@@ -29,8 +30,7 @@ import axios from 'axios'
           name: this.name,
           description: this.description
         }
-        const response = await axios.post('http://localhost:8000/elections', election)
-		console.log('response add election', response)
+        await axios.post(config.rootApi + '/elections', election)
       }
     }
   }
