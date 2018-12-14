@@ -1,5 +1,5 @@
 module.exports = function (sequelize, Sequelize) {
-  const election = sequelize.define('election', {
+  return sequelize.define('election', {
     id: {
       type: Sequelize.UUID,
       primaryKey: true
@@ -11,5 +11,4 @@ module.exports = function (sequelize, Sequelize) {
       type: Sequelize.TEXT
     }
   })
-  return election
 }

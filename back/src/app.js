@@ -19,8 +19,8 @@ app.listen(8000, () => {
   console.log('Example app listening on port 8000!')
 })
 
-const electionsController = require('./controllers').elections
+const { ElectionsController } = require('./controllers')
 
-app.get('/elections', (req, res) => electionsController.findAll(req, res))
+app.get('/elections', (req, res) => ElectionsController.findAll(req, res))
 
-app.post('/elections', electionsController.create)
+app.post('/elections', ElectionsController.create)

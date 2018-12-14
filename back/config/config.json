@@ -3,8 +3,12 @@
     "dialect": "sqlite",
     "storage": "./database.sqlite3"
   },
-  "test": {},
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./test-database.sqlite3"
+  },
   "production": {
     "dialect": "sqlite",
     "storage": "./database.sqlite3"
-  }}
+  }
+}

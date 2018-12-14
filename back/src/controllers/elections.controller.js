@@ -1,22 +1,25 @@
-const election = require('../models').election
-const uuid = require('uuid')
+const election = require('../models').Election
+const { ElectionsService } = require('../services')
+
+const create = async function (req, res) {
+  const [error, created] = ElectionsService.create({ name: req.body.name })
+  if (error) {
+    return res.status(400).send(error)
+  } else {
+    res.status(201).send(created)
+  }
+}
+
+const findAll = function (req, res) {
+  return election.findAll()
+    .then(election => res.status(200).send(election))
+    .catch(error => {
+      console.error('Failed to find all elections', error)
+      res.status(500).send(error)
+    })
+}
 
 module.exports = {
-  create (req, res) {
-    return election
-      .create({
-        id: uuid(),
-        name: req.body.name
-      })
-      .then(election => res.status(201).send(election))
-      .catch(error => res.status(400).send(error))
-  },
-  findAll (req, res) {
-    return election.findAll()
-      .then(election => res.status(200).send(election))
-      .catch(error => {
-        console.error('Failed to find all elections', error)
-        res.status(500).send(error)
-      })
-  }
+  create,
+  findAll
 }

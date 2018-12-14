@@ -1,5 +1,5 @@
-const elections = require('./elections.controller')
+const ElectionController = require('./elections.controller')
 
 module.exports = {
-  elections
+  ElectionsController: ElectionController
 }

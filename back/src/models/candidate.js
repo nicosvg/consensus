@@ -1,10 +1,10 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const candidate = sequelize.define('candidate', {
+  const Candidate = sequelize.define('candidate', {
     name: DataTypes.STRING
   }, {})
-  candidate.associate = function (models) {
-    // associations can be defined here
+  Candidate.associate = function (models) {
+    Candidate.belongsTo(models.election)
   }
-  return candidate
+  return Candidate
 }
