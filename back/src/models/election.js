@@ -1,5 +1,5 @@
 module.exports = function (sequelize, Sequelize) {
-  return sequelize.define('election', {
+  const Election = sequelize.define('election', {
     id: {
       type: Sequelize.UUID,
       primaryKey: true
@@ -11,4 +11,8 @@ module.exports = function (sequelize, Sequelize) {
       type: Sequelize.TEXT
     }
   })
+  Election.associate = function (models) {
+    Election.hasMany(models.candidate)
+  }
+  return Election
 }

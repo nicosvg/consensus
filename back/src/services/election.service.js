@@ -1,10 +1,15 @@
 const models = require('../models')
-const uuid = require('uuid')
+const uuid = require('uuid').v4
 
 const create = function (election) {
   election.id = uuid()
+  election.candidates.forEach(candidate => {
+    candidate.id = uuid()
+  })
+
   return models.election
-    .create(election)
+    .create(election,
+      { include: [models.candidate] })
     .then(result => {
       return [null, result]
     })
@@ -15,11 +20,19 @@ const create = function (election) {
 }
 
 const findAll = function (req, res) {
-  return models.election.findAll()
-    .then(election => res.status(200).send(election))
+  return models.election
+    .findAll({
+      include: [{
+        model: models.candidate,
+        as: 'candidates'
+      }]
+    })
+    .then(election => {
+      return [null, election]
+    })
     .catch(error => {
       console.error('Failed to find all elections', error)
-      res.status(500).send(error)
+      return [error]
     })
 }
 

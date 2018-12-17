@@ -10,6 +10,13 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      electionId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'elections',
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

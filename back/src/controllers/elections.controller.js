@@ -1,8 +1,8 @@
 const election = require('../models').Election
 const { ElectionsService } = require('../services')
 
-const create = async function (req, res) {
-  const [error, created] = ElectionsService.create({ name: req.body.name })
+const create = async (req, res) => {
+  const [error, created] = await ElectionsService.create({ name: req.body.name })
   if (error) {
     return res.status(400).send(error)
   } else {

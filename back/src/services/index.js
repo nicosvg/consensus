@@ -1,5 +1,1 @@
-const ElectionService = require('./election.service.js')
-
-module.exports = {
-  ElectionService
-}
+module.exports.ElectionService = require('./election.service.js')
