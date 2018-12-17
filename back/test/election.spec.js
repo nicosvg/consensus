@@ -37,6 +37,21 @@ describe('Elections', () => {
     expect(candidates).to.have.lengthOf(1)
   })
 
+  it('can not save election without candidate', async () => {
+    // Arrange
+    const election = {
+      name: 'election without candidate'
+    }
+
+    // Act
+    const [error, createdElection] = await ElectionService.create(election)
+
+    // Assert
+    expect(error).to.exist
+    expect(createdElection).not.to.exist
+    expect(error.code).to.equal('MissingCandidates')
+  })
+
   it('list elections', async () => {
     // Arrange
     const firstElection = await models.election.create({

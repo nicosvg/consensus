@@ -1,15 +1,21 @@
 const models = require('../models')
 const uuid = require('uuid').v4
+const ServerError = require('../ServerError')
 
 const create = function (election) {
+  if (!election.candidates || election.candidates.length === 0) {
+    return [
+      new ServerError('MissingCandidates', 'An election must have candidates')
+    ]
+  }
+
   election.id = uuid()
   election.candidates.forEach(candidate => {
     candidate.id = uuid()
   })
 
   return models.election
-    .create(election,
-      { include: [models.candidate] })
+    .create(election, { include: [models.candidate] })
     .then(result => {
       return [null, result]
     })
@@ -22,10 +28,12 @@ const create = function (election) {
 const findAll = function (req, res) {
   return models.election
     .findAll({
-      include: [{
-        model: models.candidate,
-        as: 'candidates'
-      }]
+      include: [
+        {
+          model: models.candidate,
+          as: 'candidates'
+        }
+      ]
     })
     .then(election => {
       return [null, election]
