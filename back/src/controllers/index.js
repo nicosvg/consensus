@@ -1,5 +1,1 @@
-const elections = require('./elections.controller')
-
-module.exports = {
-  elections
-}
+module.exports.ElectionsController = require('./elections.controller')
