@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 process.env.NODE_ENV = 'test'
 
 const chai = require('chai')
@@ -6,6 +7,17 @@ const { ElectionService } = require('../src/services')
 const models = require('../src/models')
 const uuid = require('uuid').v4
 const expect = chai.expect
+
+async function createOneElection () {
+  return models.election.create({
+    id: uuid(),
+    name: 'list_test',
+    candidates: [ {
+      id: uuid(),
+      name: 'first candidate'
+    } ]
+  }, { include: [ models.candidate ] })
+}
 
 describe('Elections', () => {
   beforeEach(async function () {
@@ -17,20 +29,20 @@ describe('Elections', () => {
     // Arrange
     const election = {
       name: 'test election',
-      candidates: [{
+      candidates: [ {
         name: 'the first candidate'
-      }]
+      } ]
     }
 
     // Act
-    const [error, createdElection] = await ElectionService.create(election)
+    const [ error, createdElection ] = await ElectionService.create(election)
 
     // Assert
     expect(error).not.to.exist
     expect(createdElection).to.exist
     const result = await models.election.findAll()
     expect(result.length).to.equal(1)
-    const firstElection = result[0]
+    const firstElection = result[ 0 ]
     expect(firstElection.name).to.equal(election.name)
     expect(firstElection.id).to.exist
     const candidates = await models.candidate.findAll()
@@ -44,7 +56,7 @@ describe('Elections', () => {
     }
 
     // Act
-    const [error, createdElection] = await ElectionService.create(election)
+    const [ error, createdElection ] = await ElectionService.create(election)
 
     // Assert
     expect(error).to.exist
@@ -57,20 +69,33 @@ describe('Elections', () => {
     const firstElection = await models.election.create({
       id: uuid(),
       name: 'list_test',
-      candidates: [{
+      candidates: [ {
         id: uuid(),
         name: 'first candidate'
-      }]
-    }, { include: [models.candidate] })
+      } ]
+    }, { include: [ models.candidate ] })
     // Act
-    const [error, list] = await ElectionService.findAll()
+    const [ error, list ] = await ElectionService.findAll()
     // Assert
     expect(error).not.to.exist
     expect(list).to.exist
     expect(list.length).to.equal(1)
-    const election = list[0]
+    const election = list[ 0 ]
     expect(election.name).to.equal(firstElection.name)
     expect(election.candidates).to.exist
     expect(election.candidates.length).to.equal(1)
+  })
+
+  it('election details', async () => {
+    // Arrange
+    const election = await createOneElection()
+    // Act
+    const [ error, savedItem ] = await ElectionService.findOne(election.id)
+    // Assert
+    expect(error).not.to.exist
+    expect(savedItem).to.exist
+    expect(savedItem.name).to.equal(election.name)
+    expect(savedItem.candidates).to.exist
+    expect(savedItem.candidates.length).to.equal(1)
   })
 })

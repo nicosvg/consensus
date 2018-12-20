@@ -15,17 +15,17 @@ const create = function (election) {
   })
 
   return models.election
-    .create(election, { include: [models.candidate] })
+    .create(election, { include: [ models.candidate ] })
     .then(result => {
-      return [null, result]
+      return [ null, result ]
     })
     .catch(error => {
       console.log('Error while saving election', error)
-      return [error]
+      return [ error ]
     })
 }
 
-const findAll = function (req, res) {
+const findAll = function () {
   return models.election
     .findAll({
       include: [
@@ -36,15 +36,38 @@ const findAll = function (req, res) {
       ]
     })
     .then(election => {
-      return [null, election]
+      return [ null, election ]
     })
     .catch(error => {
       console.error('Failed to find all elections', error)
-      return [error]
+      return [ error ]
+    })
+}
+
+const findOne = function (electionId) {
+  return models.election
+    .findOne({
+      where: {
+        id: electionId
+      },
+      include: [
+        {
+          model: models.candidate,
+          as: 'candidates'
+        }
+      ]
+    })
+    .then(election => {
+      return [ null, election ]
+    })
+    .catch(error => {
+      console.error('Failed to find election of ID' + electionId, error)
+      return [ error ]
     })
 }
 
 module.exports = {
   create,
-  findAll
+  findAll,
+  findOne
 }

@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Elections from './components/Elections'
 import Home from './components/Home'
 import AddElection from './components/AddElection'
+import ElectionDetails from './components/ElectionDetails'
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,12 @@ const routes = [
     name: 'createElection',
     path: '/elections/create',
     component: AddElection
-  }
+  },
+  {
+    name: 'electionDetails',
+    path: '/elections/:id',
+    component: ElectionDetails, props: true
+  },
 ]
 
 const router = new VueRouter({
