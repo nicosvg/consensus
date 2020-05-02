@@ -1,9 +1,18 @@
 import { Election } from "../domain/Election";
 import { ElectionRepo } from "./ports/ElectionRepo";
+import { v4 as uuid } from "uuid";
 
-const createElection = async (
+export const createElection = async (
   election: Election,
   electionRepo: ElectionRepo
 ): Promise<void> => {
-  return electionRepo.saveElection();
+  if (election.id == null) {
+    election.id = uuid();
+  }
+  for (const candidate of election.candidates) {
+    if (candidate.id == null) {
+      candidate.id = uuid();
+    }
+  }
+  return electionRepo.saveElection(election);
 };

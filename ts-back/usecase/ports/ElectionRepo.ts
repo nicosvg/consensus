@@ -1,3 +1,6 @@
+import { Election } from "../../domain/Election";
+
 export interface ElectionRepo {
-  saveElection(): Promise<void>;
+  saveElection(election: Election): Promise<void>;
+  listElections(): Promise<Election[]>;
 }

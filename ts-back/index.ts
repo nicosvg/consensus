@@ -4,6 +4,11 @@ import express from "express";
 import serveStatic from "serve-static";
 import { Election } from "./domain/Election";
 
+import { createElection } from "./usecase/CreateElection";
+import { listElections } from "./usecase/ListElections";
+import lowdb from "lowdb";
+import { LowdbElectionRepo } from "./adapters/LowdbElectionRepo";
+
 const app = express();
 
 // Serve front files
@@ -23,14 +28,30 @@ app.listen(8000, () => {
   console.log("Example app listening on port 8000!");
 });
 
+// DB init
+const FileSync = require("lowdb/adapters/FileSync");
+
+const adapter = new FileSync("db.json");
+const db = lowdb(adapter);
+initDb(db)
+
+// Init repos
+const lowdbElectionRepo = new LowdbElectionRepo(db);
+
 // Routes
-app.get("/elections", (req, res) => {
-  console.log("list elections");
+app.get("/elections", async (req, res: express.Response) => {
+  const elections: Election[] = await listElections(lowdbElectionRepo);
+  return res.send(elections);
 });
 app.get("/elections/:id", (req, res) => {
   console.log("list one election");
 });
-app.post("/elections", (req: express.Request, res: express.Response) => {
-  console.log("create one election");
+app.post("/elections", async (req: express.Request, res: express.Response) => {
   const election: Election = req.body;
+  await createElection(election, lowdbElectionRepo);
+  return res.status(200).send("Election created successfully");
 });
+
+function initDb(db) {
+  db.defaults({ elections: [] }).write();
+}
