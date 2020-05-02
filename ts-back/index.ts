@@ -8,6 +8,9 @@ import { createElection } from "./usecase/CreateElection";
 import { listElections } from "./usecase/ListElections";
 import lowdb from "lowdb";
 import { LowdbElectionRepo } from "./adapters/LowdbElectionRepo";
+import { Ballot } from "./domain/Ballot";
+import { saveVote } from "./usecase/SaveVote";
+import { LowdbVoteRepo } from "./adapters/LowdbVoteRepo";
 
 const app = express();
 
@@ -33,10 +36,11 @@ const FileSync = require("lowdb/adapters/FileSync");
 
 const adapter = new FileSync("db.json");
 const db = lowdb(adapter);
-initDb(db)
+initDb(db);
 
 // Init repos
 const lowdbElectionRepo = new LowdbElectionRepo(db);
+const voteRepo = new LowdbVoteRepo(db);
 
 // Routes
 app.get("/elections", async (req, res: express.Response) => {
@@ -51,7 +55,15 @@ app.post("/elections", async (req: express.Request, res: express.Response) => {
   await createElection(election, lowdbElectionRepo);
   return res.status(200).send("Election created successfully");
 });
-
+app.post(
+  "/elections/:id/vote",
+  async (req: express.Request, res: express.Response) => {
+    const electionId: string = req.params.id;
+    const vote: Ballot = req.body;
+    await saveVote(electionId, vote, voteRepo);
+    return res.status(200).send("Ballot saved successfully");
+  }
+);
 function initDb(db) {
-  db.defaults({ elections: [] }).write();
+  db.defaults({ elections: [], votes: [] }).write();
 }
