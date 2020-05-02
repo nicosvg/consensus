@@ -11,6 +11,7 @@ import { LowdbElectionRepo } from "./adapters/LowdbElectionRepo";
 import { Ballot } from "./domain/Ballot";
 import { saveVote } from "./usecase/SaveVote";
 import { LowdbVoteRepo } from "./adapters/LowdbVoteRepo";
+import { getResults } from "./usecase/GetResults";
 
 const app = express();
 
@@ -39,12 +40,12 @@ const db = lowdb(adapter);
 initDb(db);
 
 // Init repos
-const lowdbElectionRepo = new LowdbElectionRepo(db);
+const electionRepo = new LowdbElectionRepo(db);
 const voteRepo = new LowdbVoteRepo(db);
 
 // Routes
 app.get("/elections", async (req, res: express.Response) => {
-  const elections: Election[] = await listElections(lowdbElectionRepo);
+  const elections: Election[] = await listElections(electionRepo);
   return res.send(elections);
 });
 app.get("/elections/:id", (req, res) => {
@@ -52,7 +53,7 @@ app.get("/elections/:id", (req, res) => {
 });
 app.post("/elections", async (req: express.Request, res: express.Response) => {
   const election: Election = req.body;
-  await createElection(election, lowdbElectionRepo);
+  await createElection(election, electionRepo);
   return res.status(200).send("Election created successfully");
 });
 app.post(
@@ -62,6 +63,14 @@ app.post(
     const vote: Ballot = req.body;
     await saveVote(electionId, vote, voteRepo);
     return res.status(200).send("Ballot saved successfully");
+  }
+);
+app.get(
+  "/elections/:id/result",
+  async (req: express.Request, res: express.Response) => {
+    const electionId = req.params.id;
+    const result = await getResults(electionId, voteRepo, electionRepo);
+    return res.send(result);
   }
 );
 function initDb(db) {

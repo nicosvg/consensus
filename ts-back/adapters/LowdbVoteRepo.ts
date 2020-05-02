@@ -9,7 +9,7 @@ export class LowdbVoteRepo implements VoteRepo {
   }
 
   getVotes(electionId: string): Promise<Ballot[]> {
-    return this.db.get(dbName).filter({ electionId: electionId }).value();
+    return this.db.get(dbName).filter({electionId: electionId}).value();
   }
 
   async saveVote(ballot: Ballot): Promise<void> {

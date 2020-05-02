@@ -15,4 +15,8 @@ export class LowdbElectionRepo implements ElectionRepo {
   listElections(): Promise<Election[]> {
     return this.db.get(dbName).value();
   }
+
+  getElection(electionId: string): Promise<Election> {
+    return this.db.get(dbName).find({id: electionId}).value();
+  }
 }

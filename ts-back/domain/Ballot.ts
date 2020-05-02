@@ -1,4 +1,4 @@
-interface CandidateGrade {
+export interface CandidateGrade {
   candidateId: string;
   grade: number;
 }
@@ -6,5 +6,5 @@ interface CandidateGrade {
 export interface Ballot {
   id: string;
   electionId: string;
-  grades: CandidateGrade;
+  grades: CandidateGrade[];
 }
