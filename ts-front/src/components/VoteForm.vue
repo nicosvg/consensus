@@ -2,21 +2,23 @@
   <div>
     <h1>{{ election.name }}</h1>
     <h3>Candidates</h3>
-    <div
-      v-for="candidate in election.candidates"
-      :key="candidate.id"
-      class="candidate"
-    >
-      <div class="candidate-name">{{ candidate.name }}</div>
+    <div class="candidates-list">
       <div
-        v-for="grade in gradeValues"
-        class="grade"
-        :key="grade.value"
-        :style="{ backgroundColor: grade.color }"
-        :class="{ selected: selection[candidate.id] === grade.value }"
-        @click="select(candidate.id, grade.value)"
+        v-for="candidate in election.candidates"
+        :key="candidate.id"
+        class="candidate"
       >
-        {{ grade.label }}
+        <div class="candidate-name">{{ candidate.name }}</div>
+        <div
+          v-for="grade in gradeValues"
+          class="grade"
+          :key="grade.value"
+          :style="{ backgroundColor: grade.color }"
+          :class="{ selected: selection[candidate.id] === grade.value }"
+          @click="select(candidate.id, grade.value)"
+        >
+          {{ grade.label }}
+        </div>
       </div>
     </div>
     <button class="vote-button" @click="vote(election.id)">Validate</button>
@@ -33,10 +35,6 @@ export default {
   props: {
     id: String
   },
-  /*
-   *
-   *  	 	 	 	 	 	 	passable
-   * */
   data() {
     return {
       election: {},
@@ -58,13 +56,14 @@ export default {
     this.election = response.data;
   },
   methods: {
-    vote() {
+    async vote () {
       const grades = Object.keys(this.selection).map(key => {
-        return { candidateId: key, grade: this.selection[key] };
+        return { candidateId: key, grade: this.selection[ key ] };
       });
       const ballot = { electionId: this.election.id, grades: grades };
       console.log("vote", ballot);
-      sendVote(this.election.id, ballot);
+      await sendVote(this.election.id, ballot);
+      this.$router.push({ name: "results", params: { id: this.election.id } });
     },
     select(candidateId, grade) {
       console.log(`Selected ${grade} for candidate ${candidateId}`);
@@ -77,11 +76,19 @@ export default {
 </script>
 
 <style scoped>
-.candidate {
-  padding-top: 16px;
+.candidates-list {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.candidate {
+  padding: 16px;
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #7f9daa;
 }
 
 .vote-button {

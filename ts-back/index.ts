@@ -68,7 +68,7 @@ app.post(
   }
 );
 app.get(
-  "/elections/:id/result",
+  "/elections/:id/results",
   async (req: express.Request, res: express.Response) => {
     const electionId = req.params.id;
     const result = await getResults(electionId, voteRepo, electionRepo);
