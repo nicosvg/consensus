@@ -12,6 +12,7 @@ cache:
 Test:
   stage: test
   script:
+    - node -v
     - cd ts-front
     - yarn install --frozen-lockfile
     - cd ../ts-back
