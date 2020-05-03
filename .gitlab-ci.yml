@@ -5,14 +5,16 @@ stages:
 cache:
   key: all
   paths:
-  - front/node_modules/
-  - back/node_modules/
+  - ts-front/node_modules/
+  - ts-back/node_modules/
 
 Test:
   stage: test
   script:
     - cd front
     - npm install
+  only:
+    - merge-request
 
 Deploy:
   stage: deploy
@@ -21,12 +23,12 @@ Deploy:
   script:
     - whoami
     - echo "Build front"
-    - cd front
-    - npm install --production
-    - npm run build
+    - cd ts-front
+    - yarn install --production
+    - yarn build
     - rsync -r ./dist/ $DEPLOY_DIR/front
     - echo "Build back"
-    - cd ../back
+    - cd ../ts-back
     - npm install --production
     - pm2 stop consensus-dev
     - rsync -r . $DEPLOY_DIR/back --exclude node_modules
