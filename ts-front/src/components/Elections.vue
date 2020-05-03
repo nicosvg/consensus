@@ -20,12 +20,10 @@
 
 <script>
 import axios from "axios";
-import AddElection from "./AddElection";
-import config from "../config";
+import config from "@/config";
 
 export default {
   name: "Elections",
-  components: { AddElection },
   props: {},
   data() {
     return {
@@ -51,33 +49,31 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-@import "../scss/variables";
-
+<style scoped>
 .elections {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 3rem;
+}
 
-  .elections-title {
-    font-size: 2rem;
-    margin: 1rem;
-  }
+.elections-title {
+  font-size: 2rem;
+  margin: 1rem;
+}
 
-  .list-container {
-    margin: 2rem;
+.list-container {
+  margin: 2rem;
+}
 
-    .elections-item {
-    }
-  }
+.elections-item {
+}
 
-  .refresh-button {
-    background-color: $brown;
-  }
+.refresh-button {
+  background-color: var(--secondary);
+}
 
-  .elections-item {
-    cursor: pointer;
-  }
+.elections-item {
+  cursor: pointer;
 }
 </style>

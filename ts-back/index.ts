@@ -49,7 +49,7 @@ app.get("/elections", async (req, res: express.Response) => {
   return res.send(elections);
 });
 app.get("/elections/:id", (req, res) => {
-  console.log("list one election");
+  return res.status(501).send("Not implemented")
 });
 app.post("/elections", async (req: express.Request, res: express.Response) => {
   const election: Election = req.body;
