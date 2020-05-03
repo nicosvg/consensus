@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import config from "@/config";
+import { fetchElections } from "@/service";
 
 export default {
   name: "Elections",
@@ -35,8 +34,8 @@ export default {
   },
   methods: {
     async findAllElections() {
-      const response = await axios.get(config.rootApi + "/elections");
-      this.elections = response.data;
+      this.elections = await fetchElections();
+      console.log("found elections", this.elections);
     },
     createElection() {
       this.$router.push({ name: "createElection" });
@@ -48,7 +47,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .elections {
   display: flex;

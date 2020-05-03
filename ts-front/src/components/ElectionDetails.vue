@@ -9,6 +9,7 @@
     >
       <div>{{ candidate.name }}</div>
     </div>
+    <button class="vote-button" @click="goToVote()">Vote</button>
   </div>
 </template>
 
@@ -30,6 +31,11 @@ export default {
     const response = await axios.get(config.rootApi + "/elections/" + this.id);
     console.log("response details", response);
     this.election = response.data;
+  },
+  methods: {
+    goToVote() {
+      this.$router.push({ name: "voteForm", params: { id: this.election.id } });
+    }
   }
 };
 </script>

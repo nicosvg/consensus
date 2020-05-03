@@ -4,6 +4,7 @@ import HomePage from "../views/HomePage.vue";
 import Elections from "@/components/Elections.vue"
 import AddElection from "@/components/AddElection.vue"
 import ElectionDetails from "@/components/ElectionDetails.vue"
+import VoteForm from "@/components/VoteForm.vue"
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes: Array<RouteConfig> = [
     name: 'electionDetails',
     path: '/elections/:id',
     component: ElectionDetails, props: true
+  },
+  {
+    name: 'voteForm',
+    path: '/elections/:id/vote',
+    component: VoteForm, props: true
   },
   {
     path: "/about",
