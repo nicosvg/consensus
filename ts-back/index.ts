@@ -12,6 +12,7 @@ import { Ballot } from "./domain/Ballot";
 import { saveVote } from "./usecase/SaveVote";
 import { LowdbVoteRepo } from "./adapters/LowdbVoteRepo";
 import { getResults } from "./usecase/GetResults";
+import { getElection } from "./usecase/getElection";
 
 const app = express();
 
@@ -48,8 +49,9 @@ app.get("/elections", async (req, res: express.Response) => {
   const elections: Election[] = await listElections(electionRepo);
   return res.send(elections);
 });
-app.get("/elections/:id", (req, res) => {
-  console.log("list one election");
+app.get("/elections/:id", async (req, res) => {
+  const election: Election = await getElection(req.params.id, electionRepo);
+  return res.send(election);
 });
 app.post("/elections", async (req: express.Request, res: express.Response) => {
   const election: Election = req.body;
@@ -57,7 +59,7 @@ app.post("/elections", async (req: express.Request, res: express.Response) => {
   return res.status(200).send("Election created successfully");
 });
 app.post(
-  "/elections/:id/vote",
+  "/elections/:id/goToVote",
   async (req: express.Request, res: express.Response) => {
     const electionId: string = req.params.id;
     const vote: Ballot = req.body;
@@ -66,7 +68,7 @@ app.post(
   }
 );
 app.get(
-  "/elections/:id/result",
+  "/elections/:id/results",
   async (req: express.Request, res: express.Response) => {
     const electionId = req.params.id;
     const result = await getResults(electionId, voteRepo, electionRepo);
