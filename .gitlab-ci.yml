@@ -11,7 +11,9 @@ cache:
 Test:
   stage: test
   script:
-    - cd front
+    - cd ts-front
+    - yarn install
+    - cd ../ts-back
     - npm install
   only:
     - merge-request
