@@ -16,7 +16,7 @@ Test:
     - cd ../ts-back
     - npm install
   only:
-    - merge-request
+    - merge_requests
 
 Deploy:
   stage: deploy
