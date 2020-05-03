@@ -12,6 +12,7 @@ cache:
 Test:
   stage: test
   script:
+    - whoami
     - node -v
     - cd ts-front
     - yarn install --frozen-lockfile
@@ -25,7 +26,6 @@ Deploy:
   variables:
     DEPLOY_DIR: /home/nico/consensus/dev
   script:
-    - whoami
     - echo "Build front"
     - cd ts-front
     - yarn install --production --frozen-lockfile
