@@ -28,7 +28,7 @@ Deploy:
   script:
     - echo "Build front"
     - cd ts-front
-    - yarn install --production --frozen-lockfile
+    - yarn install --frozen-lockfile
     - yarn build
     - rsync -r ./dist/ $DEPLOY_DIR/front
     - echo "Build back"
