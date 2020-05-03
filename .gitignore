@@ -24,3 +24,4 @@ yarn-error.log*
 # DB files
 *.sqlite3
 db.json
+dist

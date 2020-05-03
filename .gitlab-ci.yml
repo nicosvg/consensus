@@ -36,8 +36,8 @@ Deploy:
     - npm ci --production
     - npm run build
     - pm2 stop consensus-dev || true
-    - rsync -r . $DEPLOY_DIR/back --exclude node_modules
-    - pm2 start $DEPLOY_DIR/back/dist/index.js --name "consensus-dev" --env production
+    - rsync -r . $DEPLOY_DIR/back
+    - pm2 start $DEPLOY_DIR/back/dist/index.js --env production --name "consensus-dev"
   environment:
     name: dev
     url: http://51.38.37.160:8000
