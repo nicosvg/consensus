@@ -32,12 +32,7 @@ Deploy:
     - yarn build
     - rsync -r ./dist/ $DEPLOY_DIR/front
     - echo "Build back"
-    - cd ../ts-back
-    - npm ci --production
-    - npm run build
-    - pm2 stop consensus-dev || true
-    - rsync -r . $DEPLOY_DIR/back
-    - pm2 start $DEPLOY_DIR/back/dist/index.js --env production --name "consensus-dev"
+    - podman build -t consensus .
   environment:
     name: dev
     url: http://51.38.37.160:8000

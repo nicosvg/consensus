@@ -29,7 +29,7 @@ app.get("/health", (req, res: express.Response) => {
   res.status(200).send("UP");
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log("Example app listening on port 8000!");
 });
 
@@ -45,20 +45,24 @@ const electionRepo = new LowdbElectionRepo(db);
 const voteRepo = new LowdbVoteRepo(db);
 
 // Routes
-app.get("/elections", async (req, res: express.Response) => {
+const router = express.Router();
+router.get("/elections", async (req, res: express.Response) => {
   const elections: Election[] = await listElections(electionRepo);
   return res.send(elections);
 });
-app.get("/elections/:id", async (req, res) => {
+router.get("/elections/:id", async (req, res) => {
   const election: Election = await getElection(req.params.id, electionRepo);
   return res.send(election);
 });
-app.post("/elections", async (req: express.Request, res: express.Response) => {
-  const election: Election = req.body;
-  await createElection(election, electionRepo);
-  return res.status(200).send("Election created successfully");
-});
-app.post(
+router.post(
+  "/elections",
+  async (req: express.Request, res: express.Response) => {
+    const election: Election = req.body;
+    await createElection(election, electionRepo);
+    return res.status(200).send("Election created successfully");
+  }
+);
+router.post(
   "/elections/:id/goToVote",
   async (req: express.Request, res: express.Response) => {
     const electionId: string = req.params.id;
@@ -67,7 +71,7 @@ app.post(
     return res.status(200).send("Ballot saved successfully");
   }
 );
-app.get(
+router.get(
   "/elections/:id/results",
   async (req: express.Request, res: express.Response) => {
     const electionId = req.params.id;
@@ -75,6 +79,8 @@ app.get(
     return res.send(result);
   }
 );
+app.use("/api/v1", router);
+
 function initDb(db) {
   db.defaults({ elections: [], votes: [] }).write();
 }
