@@ -36,7 +36,7 @@ app.listen(8000, () => {
 // DB init
 const FileSync = require("lowdb/adapters/FileSync");
 
-const adapter = new FileSync("db.json");
+const adapter = new FileSync(process.env.DB_PATH || "db.json");
 const db = lowdb(adapter);
 initDb(db);
 
