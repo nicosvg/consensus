@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
-import serveStatic from "serve-static";
-import { Election } from "./domain/Election";
+import morgan from "morgan";
 
+import { Election } from "./domain/Election";
 import { createElection } from "./usecase/CreateElection";
 import { listElections } from "./usecase/ListElections";
 import lowdb from "lowdb";
@@ -16,11 +16,7 @@ import { getElection } from "./usecase/getElection";
 
 const app = express();
 
-// Serve front files
-const frontDir = process.env.FRONT_DIR
-  ? process.env.FRONT_DIR
-  : "../front/dist";
-app.use(serveStatic(frontDir));
+app.use(morgan("tiny"));
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -31,6 +27,10 @@ app.get("/health", (req, res: express.Response) => {
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("Example app listening on port 8000!");
+
+  process.on("SIGABRT", cleanTerminate);
+  process.on("SIGINT", cleanTerminate);
+  process.on("SIGBREAK", cleanTerminate);
 });
 
 // DB init
@@ -45,42 +45,51 @@ const electionRepo = new LowdbElectionRepo(db);
 const voteRepo = new LowdbVoteRepo(db);
 
 // Routes
-const router = express.Router();
-router.get("/elections", async (req, res: express.Response) => {
-  const elections: Election[] = await listElections(electionRepo);
-  return res.send(elections);
-});
-router.get("/elections/:id", async (req, res) => {
-  const election: Election = await getElection(req.params.id, electionRepo);
-  return res.send(election);
-});
-router.post(
-  "/elections",
-  async (req: express.Request, res: express.Response) => {
-    const election: Election = req.body;
-    await createElection(election, electionRepo);
-    return res.status(200).send("Election created successfully");
-  }
-);
-router.post(
-  "/elections/:id/goToVote",
-  async (req: express.Request, res: express.Response) => {
-    const electionId: string = req.params.id;
-    const vote: Ballot = req.body;
-    await saveVote(electionId, vote, voteRepo);
-    return res.status(200).send("Ballot saved successfully");
-  }
-);
-router.get(
-  "/elections/:id/results",
-  async (req: express.Request, res: express.Response) => {
-    const electionId = req.params.id;
-    const result = await getResults(electionId, voteRepo, electionRepo);
-    return res.send(result);
-  }
-);
-app.use("/api/v1", router);
+createRoutes();
 
 function initDb(db) {
   db.defaults({ elections: [], votes: [] }).write();
+}
+
+function cleanTerminate(signal: NodeJS.Signals): void {
+  console.log("cleaning before terminating process ...", { signal: signal });
+  process.exit(0);
+}
+
+function createRoutes() {
+    const router = express.Router();
+    router.get("/elections", async (req, res: express.Response) => {
+        const elections: Election[] = await listElections(electionRepo);
+        return res.send(elections);
+    });
+    router.get("/elections/:id", async (req, res) => {
+        const election: Election = await getElection(req.params.id, electionRepo);
+        return res.send(election);
+    });
+    router.post(
+        "/elections/:id/vote",
+        async (req: express.Request, res: express.Response) => {
+            const electionId: string = req.params.id;
+            const vote: Ballot = req.body;
+            await saveVote(electionId, vote, voteRepo);
+            return res.status(200).send("Ballot saved successfully");
+        }
+    );
+    router.get(
+        "/elections/:id/results",
+        async (req: express.Request, res: express.Response) => {
+            const electionId = req.params.id;
+            const result = await getResults(electionId, voteRepo, electionRepo);
+            return res.send(result);
+        }
+    );
+    router.post(
+        "/elections",
+        async (req: express.Request, res: express.Response) => {
+            const election: Election = req.body;
+            await createElection(election, electionRepo);
+            return res.status(201).send("Election created successfully");
+        }
+    );
+    app.use("/api/v1", router);
 }

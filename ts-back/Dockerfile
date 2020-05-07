@@ -2,11 +2,12 @@ FROM node:alpine
 
 WORKDIR /usr/src/app
 
-COPY ./ts-back/package*.json ./
-COPY ./ts-back/tsconfig*.json ./
+COPY ./package*.json ./
+COPY ./tsconfig*.json ./
 RUN npm ci --quiet
-COPY ./ts-back/src ./src
+COPY ./src ./src
 RUN npm run build
 
 ENV PORT 8000
+ENV DB_PATH db.json
 ENTRYPOINT [ "node", "dist/index.js" ]
