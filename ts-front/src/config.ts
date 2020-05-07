@@ -4,14 +4,20 @@ declare global {
   }
 }
 
-window.ConsensusAppVars = window.ConsensusAppVars || {};
+window.ConsensusAppVars = window.ConsensusAppVars || null;
 
-console.log("Loading config");
-const vars = window.ConsensusAppVars;
-const rootApi = vars ? vars.rootApi : process.env.VUE_APP_ROOT_API;
-
-console.log("ROOT API", rootApi);
-
-export default {
-  rootApi
+const config = {
+  rootApi: ""
 };
+
+console.log("Loading config", window.ConsensusAppVars);
+const windowVars = window.ConsensusAppVars;
+if (windowVars) {
+  config.rootApi = windowVars.rootApi;
+} else {
+  config.rootApi = process.env.VUE_APP_ROOT_API;
+}
+
+console.log("ROOT API", config.rootApi);
+
+export default config;

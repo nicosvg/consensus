@@ -6,5 +6,6 @@ export interface Candidate {
 export interface Election {
     id: string,
     name: string,
+    code: string;
     candidates: Candidate[]
 }

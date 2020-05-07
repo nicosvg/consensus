@@ -5,3 +5,16 @@
 --secondary: rgba(176, 142, 162, 1);
 --third: rgba(224, 141, 172, 1);
 }
+
+button {
+	margin: 8px;
+	background-color: var(--primary);
+	border: none;
+	color: var(--dark);
+	padding: 8px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: lighter;
+}

@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>{{ election.name }}</h1>
+    <h2>Code: {{ election.code }}</h2>
+
     <h3>Candidates</h3>
     <div
       v-for="candidate in election.candidates"

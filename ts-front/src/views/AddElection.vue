@@ -23,7 +23,7 @@ export default {
     return {
       name: "",
       description: "",
-      candidates: []
+      candidates: [{ name: "" }]
     };
   },
   methods: {
