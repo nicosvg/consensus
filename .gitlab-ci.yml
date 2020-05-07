@@ -32,3 +32,5 @@ Deploy:
     url: http://51.38.37.160:8000
   only:
     - master
+  tags:
+    - deploy-consensus-app

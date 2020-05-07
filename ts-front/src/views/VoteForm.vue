@@ -28,7 +28,7 @@
 <script>
 import axios from "axios";
 import config from "../config";
-import { sendVote } from "@/service";
+import { sendVote } from "ts-front/src/service";
 
 export default {
   name: "ElectionDetails",

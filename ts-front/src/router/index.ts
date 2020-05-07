@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import HomePage from "../views/HomePage.vue";
-import Elections from "@/components/Elections.vue"
-import AddElection from "@/components/AddElection.vue"
-import ElectionDetails from "@/components/ElectionDetails.vue"
-import VoteForm from "@/components/VoteForm.vue"
-import Results from "@/components/Results.vue"
-import VoteConfirmation from "@/components/VoteConfirmation.vue"
+import Elections from "@/views/Elections.vue"
+import AddElection from "@/views/AddElection.vue"
+import ElectionDetails from "@/views/ElectionDetails.vue"
+import VoteForm from "@/views/VoteForm.vue"
+import Results from "@/views/Results.vue"
+import VoteConfirmation from "@/views/VoteConfirmation.vue"
 
 Vue.use(VueRouter);
 

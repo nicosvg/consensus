@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { fetchElections } from "@/service";
+import { fetchElections } from "ts-front/src/service";
 
 export default {
   name: "Elections",
