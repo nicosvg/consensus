@@ -12,6 +12,18 @@ const fetchElections = async (): Promise<Election[]> => {
   }
 };
 
+const searchElectionByCode = async (code: string): Promise<Election | null> => {
+  try {
+    const response = await axios.get(
+      `${config.rootApi}/elections?code=${code}`
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 const fetchResults = async (electionId: string): Promise<any[]> => {
   try {
     const response = await axios.get(
@@ -36,4 +48,4 @@ const sendVote = async (electionId: string, ballot: Ballot): Promise<void> => {
   }
 };
 
-export { fetchElections, sendVote, fetchResults };
+export { fetchElections, sendVote, fetchResults, searchElectionByCode };

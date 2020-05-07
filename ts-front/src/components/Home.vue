@@ -2,6 +2,13 @@
   <div class="home">
     <div class="home-title">CONSENSUS</div>
     <div class="home-subtitle">Voter avec le jugement majoritaire</div>
+
+    <div class="enter-code-block">
+      <label class="enter-code-label" for="code">Enter a code</label>
+      <input id="code" v-model="code" />
+      <button @click="searchCode">Search</button>
+      <div v-if="isNotFound">Nothing found for this code, please try again</div>
+    </div>
     <button @click="seeElections" class="elections-list-button">
       Voir les élections en cours
     </button>
@@ -9,11 +16,31 @@
 </template>
 
 <script>
+import { searchElectionByCode } from "@/service";
+
 export default {
   name: "Home",
+  data() {
+    return {
+      code: "",
+      isNotFound: false
+    };
+  },
   methods: {
     seeElections() {
       this.$router.push({ name: "electionsList" });
+    },
+    async searchCode() {
+      this.isNotFound = false;
+      const election = await searchElectionByCode(this.code);
+      if (election != null) {
+        await this.$router.push({
+          name: "electionDetails",
+          params: { id: election.id }
+        });
+      } else {
+        this.isNotFound = true;
+      }
     }
   }
 };
