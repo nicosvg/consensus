@@ -1,5 +1,7 @@
 declare global {
-  interface Window { ConsensusAppVars: any; }
+  interface Window {
+    ConsensusAppVars: { rootApi: string };
+  }
 }
 
 window.ConsensusAppVars = window.ConsensusAppVars || {};

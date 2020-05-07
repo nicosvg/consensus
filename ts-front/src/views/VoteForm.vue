@@ -28,7 +28,7 @@
 <script>
 import axios from "axios";
 import config from "../config";
-import { sendVote } from "ts-front/src/service";
+import { sendVote } from "@/service";
 
 export default {
   name: "ElectionDetails",
@@ -56,9 +56,9 @@ export default {
     this.election = response.data;
   },
   methods: {
-    async vote () {
+    async vote() {
       const grades = Object.keys(this.selection).map(key => {
-        return { candidateId: key, grade: this.selection[ key ] };
+        return { candidateId: key, grade: this.selection[key] };
       });
       const ballot = { electionId: this.election.id, grades: grades };
       console.log("vote", ballot);
