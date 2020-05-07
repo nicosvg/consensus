@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home-title">CONSENSUS</div>
-    <div class="home-subtitle">Votez, c'est cool</div>
+    <div class="home-subtitle">Voter avec le jugement majoritaire</div>
     <button @click="seeElections" class="elections-list-button">
       Voir les élections en cours
     </button>
