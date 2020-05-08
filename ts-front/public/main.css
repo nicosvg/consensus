@@ -1,20 +1,46 @@
 :root {
---dark: rgb(27, 28, 54);
---primary: rgba(124, 198, 254, 1);
---light: rgba(229, 234, 255, 1);
---secondary: rgba(176, 142, 162, 1);
---third: rgba(224, 141, 172, 1);
+  --primary: #3d405b;
+  --secondary: #81b29a;
+  --third: #e07a5f;
+  --text-dark: rgb(27, 28, 54);
+  --text-light: #f4f1de;
+  --background-one: rgb(238, 242, 230);
+  --background-two: rgba(129, 179, 154, 0.5);
+  --background-three: #f2cc8f;
 }
 
 button {
-	margin: 8px;
-	background-color: var(--primary);
-	border: none;
-	color: var(--dark);
-	padding: 8px 16px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	font-weight: lighter;
+  margin: 8px;
+  background-color: var(--primary);
+  border: none;
+  color: var(--text-light);
+  padding: 1em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: normal;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px var(--primary);
+}
+
+button:hover {
+  background-color: var(--secondary);
+  color: var(--text-dark);
+}
+
+body {
+  /*background: linear-gradient(90deg, #afdbee, #36a8d9, #36a8d9);*/
+  background: var(--background-one);
+}
+
+a:link {
+  text-decoration: none;
+  color: var(--secondary)
+}
+
+a:visited {
+  text-decoration: none;
+  color: var(--third)
 }
