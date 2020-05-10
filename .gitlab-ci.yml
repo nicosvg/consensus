@@ -27,6 +27,7 @@ Deploy:
     - cd $DEPLOY_DIR
     - docker-compose pull
     - docker-compose up -d --force-recreate
+    - docker system prune -f
   environment:
     name: dev
     url: http://51.38.37.160:8000
