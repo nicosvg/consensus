@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h2>Add a new election</h2>
-    <div>
-      <label for="new-election-name">Name</label>
-      <input id="new-election-name" v-model="name" placeholder="name" />
+    <h2>Create a new election or poll</h2>
+    <div class="title-form">
+      <label for="new-election-name" class="title-label">Title/question</label>
+      <input
+        class="title-input"
+        id="new-election-name"
+        v-model="name"
+        placeholder="title"
+      />
     </div>
-    <EditCandidates :candidates="candidates" />
-    <button v-on:click="create()">Save</button>
+    <EditCandidates :candidates="candidates" class="candidates-list" />
+    <button class="save-button" v-on:click="create()">Save</button>
   </div>
 </template>
 
@@ -46,4 +51,27 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.title-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-form > label {
+  margin-bottom: 8px;
+}
+
+.title-label {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.candidates-list {
+  margin-top: 16px;
+}
+
+.save-button {
+  margin-top: 32px;
+}
+</style>

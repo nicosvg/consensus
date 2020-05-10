@@ -30,6 +30,11 @@ button:hover {
   color: var(--text-dark);
 }
 
+button:focus {
+  background-color: var(--secondary);
+  outline: none;
+}
+
 body {
   /*background: linear-gradient(90deg, #afdbee, #36a8d9, #36a8d9);*/
   background: var(--background-one);
@@ -43,4 +48,17 @@ a:link {
 a:visited {
   text-decoration: none;
   color: var(--third)
+}
+
+input {
+  font-size: 18px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  background: var(--background-two);
+}
+
+input:focus {
+  outline: none;
+  background: #edffe6;
 }

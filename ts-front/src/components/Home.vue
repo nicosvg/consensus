@@ -88,7 +88,7 @@ export default {
 .home-subtitle {
   color: var(--dark);
   font-size: 1em;
-  width: 60%;
+  width: 80%;
   max-width: 50ch;
   padding-top: 3em;
   padding-bottom: 1em;
