@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 export const createElection = async (
   election: Election,
   electionRepo: ElectionRepo
-): Promise<void> => {
+): Promise<string> => {
   if (election.id == null) {
     election.id = uuid();
   }

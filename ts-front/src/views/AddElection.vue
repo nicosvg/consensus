@@ -40,8 +40,12 @@ export default {
       };
       console.log("Saving... ", election.candidates[0].name);
       const result = await axios.post(config.rootApi + "/elections", election);
+      console.log("got result of save", result);
       if (result.status === 201) {
-        this.$router.push({ name: "electionsList" });
+        this.$router.push({
+          name: "electionDetails",
+          params: { id: result.data }
+        });
       } else {
         console.error("Save failed!!", result);
       }

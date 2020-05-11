@@ -40,13 +40,12 @@ export default {
       election: {},
       selection: {},
       gradeValues: [
-        { color: "#008255", label: "excellent", value: 6 },
-        { color: "#79B540", label: "very good", value: 5 },
-        { color: "#D0D826", label: "good", value: 4 },
-        { color: "#f8bb32", label: "passable", value: 3 },
-        { color: "#f88b3d", label: "inadequate", value: 2 },
-        { color: "#ff4441", label: "mediocre", value: 1 },
-        { color: "#B91D2D", label: "bad", value: 0 }
+        { color: "#008255", label: "excellent", value: 5 },
+        { color: "#79B540", label: "very good", value: 4 },
+        { color: "#D0D826", label: "good", value: 3 },
+        { color: "#f8bb32", label: "acceptable", value: 2 },
+        { color: "#cc5e5c", label: "poor", value: 1 },
+        { color: "#B91D2D", label: "to reject", value: 0 }
       ]
     };
   },

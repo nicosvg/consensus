@@ -19,8 +19,7 @@
     </div>
 
     <div class="enter-code-block">
-      <label class="enter-code-label" for="code">Participate to a vote</label>
-      <!--      <div>Please enter the 5 letters code</div>-->
+      <label class="enter-code-label" for="code">Participate with a code</label>
       <input
         id="code"
         class="code-input"
@@ -80,7 +79,7 @@ export default {
 }
 
 .home-title {
-  font-family: "Bellefair", serif;
+  font-family: "Delius Swash Caps", cursive;
   color: var(--dark);
   font-size: 3.5em;
 }

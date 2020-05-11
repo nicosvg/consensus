@@ -29,7 +29,7 @@
 		height: 100%;
 
 		.home-title {
-			font-family: 'Bellefair', serif;
+			font-family: 'Delius+Swash+Caps', serif;
 			color: $dark;
 			font-size: 3.5em;
 		}

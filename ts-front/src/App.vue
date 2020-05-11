@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <div id="nav">
+      <div class="logo" @click="$router.push({ name: 'Home' })">Consensus</div>
+      <div class="links">
+        <router-link to="/elections/create">Create</router-link>
+        <router-link to="/">Participate</router-link>
+      </div>
+    </div>
     <router-view />
   </div>
 </template>
@@ -15,7 +22,9 @@
 }
 
 #nav {
-  padding: 30px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #nav a {
@@ -25,5 +34,12 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.logo {
+  font-family: "Delius Swash Caps", cursive;
+  color: var(--dark);
+  font-size: 2em;
+  cursor: pointer;
 }
 </style>

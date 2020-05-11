@@ -8,11 +8,12 @@ export class LowdbElectionRepo implements ElectionRepo {
     this.db = db;
   }
 
-  saveElection(election): Promise<void> {
-    return this.db
-      .get(dbName)
-      .push(election)
-      .write();
+  async saveElection(election): Promise<string> {
+    await this.db
+        .get(dbName)
+        .push(election)
+        .write();
+    return election.id;
   }
 
   listElections(): Promise<Election[]> {

@@ -101,8 +101,8 @@ function createRoutes() {
     "/elections",
     async (req: express.Request, res: express.Response) => {
       const election: Election = req.body;
-      await createElection(election, electionRepo);
-      return res.status(201).send("Election created successfully");
+      const createdId = await createElection(election, electionRepo);
+      return res.status(201).send(createdId);
     }
   );
   app.use("/api/v1", router);
