@@ -7,10 +7,16 @@
         <router-link to="/elections/search">Participate</router-link>
       </div>
     </div>
-    <router-view />
+    <router-view class="view" />
+    <Footer></Footer>
   </div>
 </template>
-
+<script>
+import Footer from "@/components/Footer";
+export default {
+  components: { Footer }
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -19,6 +25,9 @@
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #nav {
@@ -46,8 +55,12 @@
 
 .logo {
   font-family: "Delius Swash Caps", cursive;
-  color: var(--dark);
+  color: var(--primary);
   font-size: 2em;
   cursor: pointer;
+}
+
+.view {
+  min-height: calc(100vh - 153px);
 }
 </style>

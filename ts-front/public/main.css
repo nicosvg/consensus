@@ -1,12 +1,17 @@
 :root {
   --primary: #3d405b;
-  --secondary: #81b29a;
-  --third: #e07a5f;
+  --secondary: #a1b3aa;
+  --secondary-light: #dfebe4;
+  --accent: #e07a5f;
   --text-dark: rgb(27, 28, 54);
   --text-light: #f4f1de;
   --background-one: rgb(238, 242, 230);
   --background-two: rgba(129, 179, 154, 0.5);
   --background-three: #f2cc8f;
+}
+
+body {
+  margin: 0;
 }
 
 button {
@@ -47,15 +52,15 @@ a:link {
 
 a:visited {
   text-decoration: none;
-  color: var(--third)
+  color: var(--accent)
 }
 
 input {
   font-size: 18px;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid lightgray;
-  background: var(--background-two);
+  border: 1px solid rgba(62, 65, 92, 0.5);
+  background: var(--secondary-light);
 }
 
 input:focus {

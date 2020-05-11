@@ -51,8 +51,8 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  /*background: var(--background-two);*/
   padding: 4em 16px;
+  box-sizing: border-box;
 }
 
 .enter-code-label {
@@ -61,7 +61,6 @@ export default {
 }
 
 .code-input {
-  border: 1px solid #c4a374;
   border-radius: 4px;
   width: 6.6ch;
   font: 5ch consolas, monospace;
@@ -77,7 +76,7 @@ export default {
 
 .error-text {
   /*color: var(--third);*/
-  background-color: var(--third);
+  background-color: var(--accent);
   opacity: 0.8;
   padding: 8px 16px;
   border-radius: 4px;

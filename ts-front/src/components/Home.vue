@@ -26,7 +26,7 @@
 <script>
 import { searchElectionByCode } from "@/service";
 import Search from "@/components/Search";
-import ThumbsIcon from '@/assets/ThumbsIcon'
+import ThumbsIcon from "@/assets/ThumbsIcon";
 
 export default {
   name: "Home",
@@ -69,7 +69,7 @@ export default {
 
 .home-title {
   font-family: "Delius Swash Caps", cursive;
-  color: var(--text-dark);
+  color: var(--primary);
   font-size: 3.5em;
   margin-top: 32px;
 }
@@ -87,27 +87,8 @@ export default {
   margin-bottom: 3em;
 }
 
-.elections-list-button {
-  margin-top: 5em;
-  background-color: var(--primary);
-  border: none;
-  color: var(--text-dark);
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: normal;
-}
-
 .enter-code-block {
-  margin: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
   background: var(--background-two);
-  padding: 4em 16px;
 }
 
 .thumbs {
