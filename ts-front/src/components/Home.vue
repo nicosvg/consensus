@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="home-title">Consensus</div>
+    <ThumbsIcon class="thumbs"></ThumbsIcon>
     <div class="home-subtitle">
       Create polls and vote with
       <a href="https://en.wikipedia.org/wiki/Majority_judgment" target="_blank"
@@ -18,30 +19,18 @@
       </button>
     </div>
 
-    <div class="enter-code-block">
-      <label class="enter-code-label" for="code">Participate with a code</label>
-      <input
-        id="code"
-        class="code-input"
-        v-model="code"
-        minlength="5"
-        maxlength="5"
-      />
-      <div v-if="isNotFound" class="error-text">
-        Nothing found for this code, please try again
-      </div>
-      <button class="participate-button" @click="searchCode">
-        Participate!
-      </button>
-    </div>
+    <Search class="enter-code-block"></Search>
   </div>
 </template>
 
 <script>
 import { searchElectionByCode } from "@/service";
+import Search from "@/components/Search";
+import ThumbsIcon from '@/assets/ThumbsIcon'
 
 export default {
   name: "Home",
+  components: { ThumbsIcon, Search },
   data() {
     return {
       code: "",
@@ -80,12 +69,13 @@ export default {
 
 .home-title {
   font-family: "Delius Swash Caps", cursive;
-  color: var(--dark);
+  color: var(--text-dark);
   font-size: 3.5em;
+  margin-top: 32px;
 }
 
 .home-subtitle {
-  color: var(--dark);
+  color: var(--text-dark);
   font-size: 1em;
   width: 80%;
   max-width: 50ch;
@@ -101,7 +91,7 @@ export default {
   margin-top: 5em;
   background-color: var(--primary);
   border: none;
-  color: var(--dark);
+  color: var(--text-dark);
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -120,32 +110,8 @@ export default {
   padding: 4em 16px;
 }
 
-.enter-code-label {
-  padding: 8px;
-  font-size: 24px;
-}
-
-.code-input {
-  border: 1px solid #c4a374;
-  border-radius: 4px;
-  width: 6.6ch;
-  font: 5ch consolas, monospace;
-  letter-spacing: 0.1ch;
-  text-transform: uppercase;
-  margin: 8px 8px;
-  padding: 8px;
-}
-
-.participate-button {
-  width: 10em;
-}
-
-.error-text {
-  /*color: var(--third);*/
-  background-color: var(--third);
-  opacity: 0.8;
-  padding: 8px 16px;
-  border-radius: 4px;
-  color: var(--text-dark);
+.thumbs {
+  height: 6em;
+  margin-top: 32px;
 }
 </style>

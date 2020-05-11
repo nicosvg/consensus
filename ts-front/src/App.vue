@@ -4,7 +4,7 @@
       <div class="logo" @click="$router.push({ name: 'Home' })">Consensus</div>
       <div class="links">
         <router-link to="/elections/create">Create</router-link>
-        <router-link to="/">Participate</router-link>
+        <router-link to="/elections/search">Participate</router-link>
       </div>
     </div>
     <router-view />
@@ -25,11 +25,19 @@
   padding: 16px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  #nav {
+    display: none;
+  }
 }
 
 #nav a {
+  margin-left: 16px;
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--primary);
 }
 
 #nav a.router-link-exact-active {

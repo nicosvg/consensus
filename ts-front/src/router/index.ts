@@ -6,6 +6,7 @@ import AddElection from "@/views/AddElection.vue";
 import ElectionDetails from "@/views/ElectionDetails.vue";
 import VoteForm from "@/views/VoteForm.vue";
 import Results from "@/views/Results.vue";
+import SearchView from "@/views/SearchView.vue";
 import VoteConfirmation from "@/views/VoteConfirmation.vue";
 
 Vue.use(VueRouter);
@@ -25,6 +26,11 @@ const routes: Array<RouteConfig> = [
     name: "createElection",
     path: "/elections/create",
     component: AddElection
+  },
+  {
+    name: "createElection",
+    path: "/elections/search",
+    component: SearchView
   },
   {
     name: "electionDetails",
