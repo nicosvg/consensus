@@ -8,6 +8,7 @@
   --background-one: rgb(238, 242, 230);
   --background-two: rgba(129, 179, 154, 0.5);
   --background-three: #f2cc8f;
+  --disabled: #cccccc;
 }
 
 body {
@@ -38,6 +39,13 @@ button:hover {
 button:focus {
   background-color: var(--secondary);
   outline: none;
+}
+
+button:disabled {
+  background-color: var(--disabled);
+  outline: none;
+  box-shadow: none;
+  color: white;
 }
 
 body {

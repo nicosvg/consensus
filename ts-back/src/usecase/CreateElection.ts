@@ -21,12 +21,10 @@ export const createElection = async (
 };
 
 function getCode() {
-  let result           = '';
-  const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const charactersLength = characters.length;
-  for ( let i = 0; i < 5; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  let result = "";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let i = 0; i < 5; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
 }
-

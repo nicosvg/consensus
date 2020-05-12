@@ -1,17 +1,23 @@
 <template>
-  <div>
-    <h2>Create a new election or poll</h2>
+  <div class="new-vote-form">
+    <div class="new-vote-header cursive">New vote</div>
     <div class="title-form">
-      <label for="new-election-name" class="title-label">Title/question</label>
+      <label for="new-election-name" class="title-label">Question</label>
       <input
         class="title-input"
         id="new-election-name"
         v-model="name"
-        placeholder="title"
+        placeholder="Where should we go on vacation?"
       />
     </div>
     <EditCandidates :candidates="candidates" class="candidates-list" />
-    <button class="save-button" v-on:click="create()">Save</button>
+    <button
+      class="save-button"
+      v-on:click="create()"
+      :disabled="isButtonDisabled()"
+    >
+      Save
+    </button>
   </div>
 </template>
 
@@ -49,6 +55,11 @@ export default {
       } else {
         console.error("Save failed!!", result);
       }
+    },
+    isButtonDisabled() {
+      const realCandidateNumber = this.candidates.filter(c => c.name.length > 0)
+        .length;
+      return this.name.length < 1 || this.candidates.length === 0 || realCandidateNumber < 2;
     }
   }
 };
@@ -56,26 +67,48 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.new-vote-form {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  align-items: stretch;
+  width: 40ch;
+  max-width: 90vw;
+  padding: 0 16px;
+}
+
+.new-vote-header {
+  font-size: 32px;
+  font-weight: 500;
+  margin: 32px 0;
+}
+
 .title-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.title-form > label {
-  margin-bottom: 8px;
+  align-items: flex-start;
 }
 
 .title-label {
   font-size: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.title-input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .candidates-list {
-  margin-top: 16px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .save-button {
-  margin-top: 32px;
+  align-self: center;
+  margin-top: 40px;
+  width: 10em;
 }
 </style>
