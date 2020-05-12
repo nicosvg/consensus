@@ -12,7 +12,7 @@
           class="candidate-input"
           id="candidate-name"
           v-model="candidate.name"
-          :placeholder="getRandomPlaceholder()"
+          :placeholder="getRandomPlaceholder(index)"
           v-on:keyup.enter="addCandidate()"
           :ref="'candidate-input-' + index"
         />
@@ -26,6 +26,14 @@
 </template>
 
 <script>
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 export default {
   name: "EditCandidates",
   props: {
@@ -33,6 +41,24 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  data() {
+    return {
+      placeholders: []
+    };
+  },
+  created() {
+    const strings = [
+      "In the kitchen",
+      "In the bathroom",
+      "On the moon",
+      "Somewhere sunny",
+      "Somewhere funny",
+      "Somewhere with snow",
+      "Under the sea",
+      "On an island"
+    ];
+    this.placeholders = shuffleArray(strings);
   },
   methods: {
     addCandidate() {
@@ -46,18 +72,8 @@ export default {
     removeCandidate(index) {
       this.candidates = this.candidates.splice(index, 1);
     },
-    getRandomPlaceholder() {
-      const strings = [
-        "In the kitchen",
-        "In the bathroom",
-        "On the moon",
-        "Somewhere sunny",
-        "Somewhere funny",
-        "Somewhere with snow",
-        "Under the sea",
-        "On an island"
-      ];
-      return strings[Math.floor(Math.random() * strings.length)];
+    getRandomPlaceholder(index) {
+      return this.placeholders[index % this.placeholders.length];
     }
   }
 };

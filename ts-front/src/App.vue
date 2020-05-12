@@ -62,6 +62,6 @@ export default {
 }
 
 .view {
-  min-height: calc(100vh - 153px);
+  min-height: calc(100vh - 239px);
 }
 </style>
