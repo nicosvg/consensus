@@ -9,8 +9,10 @@ services:
     - back
     environment:
     - ROOT_API=http://localhost:8002/api/v1
+    restart: always
   back:
 #    image: registry.gitlab.com/noki/consensus/back
     image: consensus-back
     ports:
     - "8002:8000"
+    restart: always
