@@ -6,6 +6,7 @@ export const createElection = async (
   election: Election,
   electionRepo: ElectionRepo
 ): Promise<string> => {
+  election.candidates = election.candidates.filter(c => !!c.name)
   if (election.id == null) {
     election.id = uuid();
   }
@@ -21,8 +22,8 @@ export const createElection = async (
 };
 
 function getCode() {
-  let result = "";
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let result = "";
   for (let i = 0; i < 5; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
