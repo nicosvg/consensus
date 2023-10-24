@@ -27,7 +27,7 @@ app.get("/health", (req, res: express.Response) => {
 });
 
 app.listen(process.env.PORT || 8000, () => {
-  console.log("Example app listening on port 8000!");
+  console.log("Consensus server listening on port " + process.env.PORT || 8000);
 
   process.on("SIGABRT", cleanTerminate);
   process.on("SIGINT", cleanTerminate);
