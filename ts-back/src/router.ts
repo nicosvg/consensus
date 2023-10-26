@@ -7,9 +7,10 @@ import { saveVote } from "./usecase/SaveVote";
 import { getResults } from "./usecase/GetResults";
 import { getElection } from "./usecase/getElection";
 import { findElectionByCode } from "./usecase/findElectionByCode";
-import { electionRepo, voteRepo, app } from ".";
+import { ElectionRepo } from "./usecase/ports/ElectionRepo";
+import { VoteRepo } from "./usecase/ports/VoteRepo";
 
-export function createRoutes() {
+export function createRoutes(electionRepo: ElectionRepo, voteRepo: VoteRepo) {
     const router = express.Router();
     router.get("/elections", async (req, res: express.Response) => {
         const code: string = req.query.code as string;
@@ -57,5 +58,5 @@ export function createRoutes() {
             return res.status(201).send(createdId);
         }
     );
-    app.use("/api/v1", router);
+    return router
 }
