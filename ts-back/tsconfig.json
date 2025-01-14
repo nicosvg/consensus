@@ -12,7 +12,10 @@
     "esModuleInterop": true,
     "moduleResolution": "nodenext",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "react",
+    "jsxFactory": "Html.createElement",
+    "jsxFragmentFactory": "Html.Fragment"
   },
   "lib": [
     "es2015"
