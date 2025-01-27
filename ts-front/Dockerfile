@@ -14,10 +14,12 @@ COPY ./.eslintrc.js ./
 COPY ./babel.config.js ./
 COPY ./tsconfig.json ./
 
+# Use old unsecure version of openssl
+RUN export NODE_OPTIONS=--openssl-legacy-provider
 # install project dependencies
 RUN npm install
 # build app for production with minification
-RUN npm run build --production
+RUN NODE_OPTIONS=--openssl-legacy-provider npm run build --production
 
 FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html

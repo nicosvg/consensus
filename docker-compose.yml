@@ -1,18 +1,18 @@
-version: '2.0'
+version: "2.0"
 services:
   web:
-#    image: registry.gitlab.com/noki/consensus/front
+    #    image: registry.gitlab.com/noki/consensus/front
     image: consensus-front
     ports:
-    - "8001:8080"
+      - "8001:80"
     links:
-    - back
+      - back
     environment:
-    - ROOT_API=http://localhost:8002/api/v1
+      - ROOT_API=http://localhost:8002/api/v1
     restart: always
   back:
-#    image: registry.gitlab.com/noki/consensus/back
+    #    image: registry.gitlab.com/noki/consensus/back
     image: consensus-back
     ports:
-    - "8002:8000"
+      - "8002:8000"
     restart: always

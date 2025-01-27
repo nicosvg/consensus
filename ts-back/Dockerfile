@@ -1,20 +1,21 @@
-FROM node:lts-alpine as build
+# Use the official Bun image
+FROM oven/bun:latest
 
-WORKDIR /usr/src/app
+# Set the working directory
+WORKDIR /app
 
-COPY ./package*.json ./
-COPY ./tsconfig*.json ./
-RUN npm ci --quiet
-COPY ./src ./src
-RUN npm run build
-RUN npm ci --quiet --production
+# Copy package.json and bun.lockb
+COPY package.json bun.lockb ./
 
-FROM node:lts-alpine
-WORKDIR /usr/src/app
+# Install dependencies
+RUN bun install
 
-COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/node_modules ./node_modules
+# Copy the rest of the application code
+COPY . .
 
-ENV PORT 8000
-ENV DB_PATH db.json
-ENTRYPOINT [ "node", "dist/index.js" ]
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Start the application
+CMD ["bun", "src/index.ts"]
+
